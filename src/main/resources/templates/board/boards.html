@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrinkto-fit=no">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <title>AhnBoard</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>제목</th>
+                    <!--<th>내용</th>-->
+                    <th>작성자</th>
+                    <th>info</th>
+                </tr>
+                </thead>
+                <tbody>
+                        <tr th:each="board : ${boards}">
+                            <td th:text="${board.id}"></td>
+                            <td th:text="${board.title}"></td>
+                            <!--<td th:text="${board.content}"></td>-->
+                            <td th:text="${board.writer}"></td>
+                            <td><a href="#" th:href="@{/board/info-board(id = ${board.id})}">Info</a></td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="justify-content-end">
+            <button type="button" class="btn btn-primary" onclick="goNewBoard();">등록</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; FirstServiceBoard</p>
+    </div>
+</div> <!-- /container -->
+</body>
+<script>
+    function goNewBoard() {
+        location.href = "/board/new"
+    }
+</script>
+</html>
