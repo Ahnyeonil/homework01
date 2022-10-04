@@ -16,3 +16,11 @@
 ### - 제목, 작성자명, 비밀번호, 작성 내용을 수정되게 하기
 ## 7. 게시글 삭제 API
 ### - 글이 삭제되게 하기
+
+1. GET, /boards, 게시글 목록
+2. GET, /board/new, 게시글 등록 페이지 이동
+3. POST, /board/new, 게시글 등록
+4. GET, /board/{id}/info-board, 게시글 상세
+5. POST, /board/update, 게시글 수정
+6. POST, /board/delete, 게시글 삭제
+비밀번호 일치 여부 확인은 api없이 수정/삭제시 함수로 따로 처리
