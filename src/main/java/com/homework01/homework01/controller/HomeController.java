@@ -1,5 +1,6 @@
 package com.homework01.homework01.controller;
 
+import com.homework01.homework01.dto.BoardDto;
 import com.homework01.homework01.entity.Board;
 import com.homework01.homework01.service.BoardService;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model){
-        List<Board> boardList = boardService.findBoards();
+        List<BoardDto> boardList = boardService.findBoards();
         model.addAttribute("boards", boardList);
         return "board/boards";
     }

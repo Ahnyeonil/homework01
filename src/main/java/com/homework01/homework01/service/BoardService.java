@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,18 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional // 메소드 동작이 SQL 쿼리문임을 선언합니다.
-    public List<Board> findBoards(){
+    public List<BoardDto> findBoards(){
         List<Board> boards = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
-        return boards;
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board b : boards) {
+
+            BoardDto boardDto = new BoardDto(b);
+
+            boardDtoList.add(boardDto);
+        }
+
+        return boardDtoList;
     }
 
     @Transactional

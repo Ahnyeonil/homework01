@@ -20,7 +20,7 @@ public class BoardController {
 
     @GetMapping("/boards")
     public String selectBoards(Model model) {
-        List<Board> boardList = boardService.findBoards();
+        List<BoardDto> boardList = boardService.findBoards();
         model.addAttribute("boards", boardList);
         return "board/boards";
     }
