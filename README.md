@@ -17,6 +17,7 @@
 ## 7. 게시글 삭제 API
 ### - 글이 삭제되게 하기
 
+## API  
 1. GET, /boards, 게시글 목록
 2. GET, /board/new, 게시글 등록 페이지 이동
 3. POST, /board/new, 게시글 등록
