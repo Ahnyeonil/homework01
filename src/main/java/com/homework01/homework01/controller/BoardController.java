@@ -70,4 +70,15 @@ public class BoardController {
         }
         return false;
     }
+
+    // 비밀번호 판별 API 구현시 실행 X
+    // 수정 및 삭제 버튼 눌렀을 경우 수정/삭제 API 도중 비밀번호 판별
+    /*@PostMapping("/board/check-password")
+    public boolean checkPassword(@RequestParam("boardId") Long id,@RequestParam("pwd") String pw){
+        BoardDto boardDto = boardService.findBoard(id);
+        if(boardDto.getPassword().equals(pw)){
+            return true;
+        }
+        return false;
+    }*/
 }
