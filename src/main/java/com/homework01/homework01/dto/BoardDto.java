@@ -5,15 +5,19 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class BoardDto {
 
-    Long id;
-    String title;
-    String writer;
-    String content;
-    String password;
+    private Long id;
+    private String title;
+    private String writer;
+    private String content;
+    private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
 }

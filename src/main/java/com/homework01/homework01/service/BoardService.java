@@ -24,14 +24,37 @@ public class BoardService {
     }
 
     @Transactional
-    public Optional<Board> findBoard(Long boardId){
+    public BoardDto findBoard(Long boardId){
         Optional<Board> board = boardRepository.findById(boardId);
-        return board;
+
+        BoardDto boardForm = new BoardDto();
+
+        boardForm.setId(board.get().getId());
+        boardForm.setTitle(board.get().getTitle());
+        boardForm.setContent(board.get().getContent());
+        boardForm.setWriter(board.get().getWriter());
+        boardForm.setPassword(board.get().getPassword());
+        boardForm.setCreatedAt(board.get().getCreatedAt());
+        boardForm.setModifiedAt(board.get().getModifiedAt());
+
+        return boardForm;
     }
 
     @Transactional
     public void insertBoard(BoardDto boardDto){
         Board board = new Board(boardDto);
         boardRepository.save(board);
+    }
+
+    @Transactional
+    public void updateBoard(BoardDto boardDto) {
+        Board board = new Board(boardDto);
+        boardRepository.setBoardInfoById(boardDto.getTitle(), boardDto.getContent(), boardDto.getWriter(), boardDto.getPassword(), boardDto.getId(), boardDto.getModifiedAt());
+
+    }
+
+    @Transactional
+    public void deleteBoard(Long id) {
+        boardRepository.deleteById(id);
     }
 }

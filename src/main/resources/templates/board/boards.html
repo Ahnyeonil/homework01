@@ -24,6 +24,8 @@
                     <th>제목</th>
                     <!--<th>내용</th>-->
                     <th>작성자</th>
+                    <th>등록일자</th>
+                    <th>최종수정일자</th>
                     <th>info</th>
                 </tr>
                 </thead>
@@ -33,23 +35,24 @@
                             <td th:text="${board.title}"></td>
                             <!--<td th:text="${board.content}"></td>-->
                             <td th:text="${board.writer}"></td>
-                            <td><a href="#" th:href="@{/board/info-board(id = ${board.id})}">Info</a></td>
+                            <td th:text="${board.createdAt}"></td>
+                            <td th:text="${board.modifiedAt}"></td>
+                            <td><a href="#" th:href="@{/board/{id}/info-board (id=${board.id})}">Info</a></td>
                         </tr>
                 </tbody>
             </table>
         </div>
-        <div class="justify-content-end">
-            <button type="button" class="btn btn-primary" onclick="goNewBoard();">등록</button>
-        </div>
-    </div>
-    <div class="footer">
-        <p>&copy; FirstServiceBoard</p>
+        <button type="button" class="btn btn-primary" onclick="goNewBoard();">등록</button>
     </div>
 </div> <!-- /container -->
 </body>
 <script>
     function goNewBoard() {
         location.href = "/board/new"
+    }
+
+    function goMain() {
+        location.href = "/"
     }
 </script>
 </html>

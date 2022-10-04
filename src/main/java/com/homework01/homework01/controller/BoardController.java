@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,36 +19,55 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boards")
-    public String selectBoards(Model model){
+    public String selectBoards(Model model) {
         List<Board> boardList = boardService.findBoards();
         model.addAttribute("boards", boardList);
         return "board/boards";
     }
 
     @GetMapping("/board/new")
-    public String newBoard(){
+    public String newBoard() {
         return "board/createBoardForm";
     }
 
     @PostMapping("/board/new")
-    public String insertBoard(BoardDto boardDto){
+    public String insertBoard(BoardDto boardDto) {
         boardService.insertBoard(boardDto);
         return "redirect:/";
     }
 
-    @GetMapping("/board/info-board")
-    public String infoBoard(Model model, @RequestParam("id") Long boardId){
-        Optional<Board> board = boardService.findBoard(boardId);
-        BoardDto boardDto = new BoardDto();
-
-        boardDto.setId(board.get().getId());
-        boardDto.setTitle(board.get().getTitle());
-        boardDto.setContent(board.get().getContent());
-        boardDto.setWriter(board.get().getWriter());
-        boardDto.setPassword(board.get().getPassword());
-
+    @GetMapping({"/board/{id}/info-board"})
+    public String infoBoard(Model model, @PathVariable("id") Long boardId) {
+        BoardDto boardDto = boardService.findBoard(boardId);
         model.addAttribute("board", boardDto);
         return "board/infoBoard";
     }
 
+    @PostMapping("/board/update")
+    public String updateBoard(Model model, BoardDto boardDto, @RequestParam("pwcheck") String pw) {
+
+        if(checkPw(boardDto.getId(), pw)){
+            boardDto.setModifiedAt(LocalDateTime.now());
+            boardService.updateBoard(boardDto);
+            model.addAttribute("id", boardDto.getId());
+        }
+
+        return "redirect:/board/"  + boardDto.getId() + "/info-board";
+    }
+
+    @PostMapping("/board/delete")
+    public String deleteBoard(@RequestParam("bid") Long boardId, @RequestParam("pwcheck2") String pw) {
+        if(checkPw(boardId, pw)){
+            boardService.deleteBoard(boardId);
+        }
+        return "redirect:/";
+    }
+
+    public boolean checkPw(Long id, String pw) {
+        BoardDto boardDto = boardService.findBoard(id);
+        if(boardDto.getPassword().equals(pw)){
+            return true;
+        }
+        return false;
+    }
 }
